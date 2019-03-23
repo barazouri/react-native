@@ -1,0 +1,43 @@
+{
+  "name": "israel-election-ex1",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "react": "16.8.3",
+    "react-devtools-core": "^2.3.0",
+    "react-native": "0.59.1",
+    "react-native-elements": "^1.1.0",
+    "react-native-fontawesome": "^6.0.1",
+    "react-native-vector-icons": "^4.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/runtime": "^7.3.4",
+    "babel-jest": "^24.5.0",
+    "create-react-component-folder": "^0.1.28",
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "checkSubmission": {
+    "ex": 1,
+    "students": [
+        {"id": "205785124", "fullName": "Bar Azouri", "email": "barazouri24@gmail.com"},
+        {"id": "308353523", "fullName": "Guy Golpur", "email": "guygolpur@gmail.com"}
+    ],
+    "os": "Mac", 
+    "device": "ios", 
+    "deliveryDate": "22/3/2019",
+    "delay": false,
+    "delayReason": "",
+    "comments": ""
+}
+}

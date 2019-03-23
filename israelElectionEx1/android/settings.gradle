@@ -1,0 +1,3 @@
+rootProject.name = 'israelElectionEx1'
+
+include ':app'
