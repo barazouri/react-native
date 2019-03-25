@@ -34,7 +34,7 @@ export default class TopRankParties extends Component {
   }
   render() {
     return (
-      <View flex={1}>
+      <View>
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           data={this.state.Top5RankParties}

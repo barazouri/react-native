@@ -20,8 +20,16 @@
     "@babel/runtime": "^7.3.4",
     "babel-jest": "^24.5.0",
     "create-react-component-folder": "^0.1.28",
+    "eslint": "^5.15.3",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-native": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-native": "^3.6.0",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.1",
+    "prettier": "^1.16.4",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
@@ -30,14 +38,22 @@
   "checkSubmission": {
     "ex": 1,
     "students": [
-        {"id": "205785124", "fullName": "Bar Azouri", "email": "barazouri24@gmail.com"},
-        {"id": "308353523", "fullName": "Guy Golpur", "email": "guygolpur@gmail.com"}
+      {
+        "id": "205785124",
+        "fullName": "Bar Azouri",
+        "email": "barazouri24@gmail.com"
+      },
+      {
+        "id": "308353523",
+        "fullName": "Guy Golpur",
+        "email": "guygolpur@gmail.com"
+      }
     ],
-    "os": "Mac", 
-    "device": "ios", 
+    "os": "Mac",
+    "device": "ios",
     "deliveryDate": "22/3/2019",
     "delay": false,
     "delayReason": "",
     "comments": ""
-}
+  }
 }

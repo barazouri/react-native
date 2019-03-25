@@ -42,7 +42,7 @@ export default class App extends Component {
   }
   render() {
     return (
-      <View flex={1}>
+      <View style={styles.appContainer}>
         {this.state.buttonStatus ? this.topRankPartiesPage() : this.votePage()}
       </View>
     )
@@ -57,5 +57,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
+  appContainer:{
+    flex:1
+  }
 })
 

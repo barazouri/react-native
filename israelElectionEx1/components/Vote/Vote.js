@@ -25,7 +25,6 @@ export default class Vote extends Component {
       });
   }
   voteParty(partyToVote) {
-    console.log(partyToVote)
     fetch(`https://isr-elections.herokuapp.com/api/parties/vote/${partyToVote}`, {
       method: 'POST'
     })
@@ -37,12 +36,10 @@ export default class Vote extends Component {
   beforeUserVote() {
     return (
       <FlatList
-        contentContainerStyle={{ flexGrow: 1 }}
         data={this.state.parties}
         numColumns={2}
-        showsVerticalScrollIndicator={false}
         renderItem={({ item }) =>
-          <TouchableOpacity flex={1} onPress={() => this.voteParty(item.id)}>
+          <TouchableOpacity  onPress={() => this.voteParty(item.id)}>
             <ImageBackground source={images[`${item.id}`]}
               style={styles.imageParty}
             >
@@ -63,7 +60,7 @@ export default class Vote extends Component {
   }
   render() {
     return (
-      <View flex={1}>
+      <View style={styles.votePageCointainer}>
         {this.state.userVoted ? this.userVoted() : this.beforeUserVote()}
       </View>
     );
@@ -95,5 +92,8 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 50,
     textAlign: 'center',
+  },
+  votePageCointainer:{
+    flex:1
   }
 });
