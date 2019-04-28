@@ -1,14 +1,10 @@
-import { ZOOM_PHOTO, SET_LIKE, RETURN, SHOW_FAV, CHANGE_VIEW,SET_PHOTOS_API } from './phothActionTypes'
+import { IS_ZOOM, ZOOM_PHOTO, ADD_PHOTO_TO_FAVORITE } from './phothActionTypes'
 
-const zoomPhoto = id => ({ type: ZOOM_PHOTO, data: { id } })
-const setLike = id => ({ type: SET_LIKE, data: { id } })
-const Return = () => ({ type: RETURN })
-const showFav = () => ({type:SHOW_FAV})
-const setPhotosApi = kind => ({type:SET_PHOTOS_API, data:kind})
-// const handleAddTodoSubmission = () => async dispatch => {
-//   dispatch(changeInputVisibility())
-// }
-
+const addPhotoToFavorite = photo => ({ type: ADD_PHOTO_TO_FAVORITE, data: photo })
+const zoomClickedPhoto = photo => ({ type: ZOOM_PHOTO, data: photo })
+const isZoom = kind => ({ type: IS_ZOOM, data: kind })
 export default {
-  setPhotosApi,
+  zoomClickedPhoto,
+  addPhotoToFavorite,
+  isZoom
 }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
-import PropTypes from 'prop-types'
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
+import propTypes from 'prop-types'
 import { connect } from 'react-redux'
-import actions from './headerActions'
-
+import headerActions from './headerActions'
+import photoActions from '../photos/photoAction'
 const styles = StyleSheet.create({
   header: {
     height: 80,
     flexDirection: 'row',
-    paddingLeft: 60,
+    paddingLeft: 30,
     top: 40,
     width: '100%',
     borderWidth: 1,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 30,
-    paddingRight: 45
+    paddingLeft: 30
   },
   views: {
     borderWidth: 1,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 35,
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   btnGrid: {
     width: '50%',
@@ -47,69 +47,88 @@ const styles = StyleSheet.create({
   },
   containerBtnGrid: {
     flex: 1,
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
   containerBtnList: {
     flex: 1,
-    alignItems: 'center',
-
+    alignItems: 'center'
   }
 })
-
-const mapStateToProps = ({ header }) => {
+const mapStateToProps = ({ header, photo }) => {
   return {
-    headerMode: header.headerMode
+    headerMode: header.headerMode,
+    favoritePage: header.favoritePage,
+    zoomInPhoto: photo.zoomInPhoto
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    favoriteClicked: status => dispatch(headerActions.favoriteClicked(status)),
+    handleGrid: () => dispatch(headerActions.handleGrid()),
+    handleList: () => dispatch(headerActions.handleList()),
+    isZoom: kind => dispatch(photoActions.isZoom(kind))
   }
 }
 export class Header extends Component {
   constructor(props) {
     super(props)
+    this.handleButtonLikeClicked = this.handleButtonLikeClicked.bind(this)
+    this.handleButtonBackClicked = this.handleButtonBackClicked.bind(this)
+  }
+  handleButtonLikeClicked() {
+    const { favoriteClicked } = this.props
+    // isZoom(false)
+    favoriteClicked(true)
+  }
+  handleButtonBackClicked() {
+    const { isZoom, favoriteClicked } = this.props
+    isZoom(false)
+    favoriteClicked(false)
   }
   render() {
-    const {
-      headerMode,
-      handleGrid,
-      handleList
-    } = this.props
+    const { headerMode, favoritePage, handleGrid, handleList, zoomInPhoto } = this.props
     return (
       <View>
         <View style={styles.header}>
+          {!zoomInPhoto && !favoritePage && (
+            <TouchableOpacity onPress={this.handleButtonLikeClicked}>
+              <Image style={styles.favorite} source={require('../../images/like.png')} />
+            </TouchableOpacity>
+          )}
+          {(favoritePage || zoomInPhoto) && (
+            <TouchableOpacity onPress={this.handleButtonBackClicked}>
+              <Image style={styles.favorite} source={require('../../images/left-arrow.png')} />
+            </TouchableOpacity>
+          )}
           <Text style={styles.txt}>Images Browser</Text>
-          <TouchableOpacity><Image style={styles.favorite} source={require('../../images/like.png')}></Image></TouchableOpacity>
         </View>
-       
+
         <View style={styles.views}>
           <View style={styles.containerBtnGrid} backgroundColor={headerMode ? 'blue' : 'white'}>
-            <TouchableOpacity backgroundColor={'blue'} style={styles.btnGrid} onPress={handleGrid}><Text >Grid View</Text></TouchableOpacity>
+            <TouchableOpacity backgroundColor={'blue'} style={styles.btnGrid} onPress={handleGrid}>
+              <Text>Grid View</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.containerBtnList} backgroundColor={headerMode ? 'white' : 'blue'}>
-            <TouchableOpacity style={styles.btnList} onPress={handleList} ><Text >List View</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.btnList} onPress={handleList}>
+              <Text>List View</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        {!headerMode && (
-          <View>
-            <TextInput
-              placeholder="Type here to translate!"
-            />
-          </View>
-        )}
-        {headerMode && (
-          <View>
-            <TextInput
-              placeholder="LIST"
-            />
-          </View>
-        )
-        }
       </View>
     )
   }
 }
 Header.propTypes = {
-  headerMode: PropTypes.bool
+  headerMode: propTypes.bool,
+  favoritePage: propTypes.bool,
+  zoomInPhoto: propTypes.bool,
+  isZoom: propTypes.func,
+  favoriteClicked: propTypes.func,
+  handleGrid: propTypes.func,
+  handleList: propTypes.func
 }
 export default connect(
   mapStateToProps,
-  actions
+  mapDispatchToProps
 )(Header)
