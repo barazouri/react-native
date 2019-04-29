@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Text, View, Image, ActivityIndicator, TextInput } from 'react-native'
+import { FlatList, StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 import propTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ListViewActions from './ListViewActions'
@@ -33,12 +33,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
-  inputStyle: {
-    flex: 1,
-    height: 30,
-    borderWidth: 1,
-    borderRadius: 5
-  },
   seperator: {
     height: 1,
     width: '86%',
@@ -53,13 +47,13 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ ListView, header, photo }) => {
+const mapStateToProps = ({ ListView, header, PhotoList }) => {
   return {
     loading: ListView.loading,
     keyBoardValue: ListView.keyBoardValue,
     photos: ListView.photos,
     favoritePage: header.favoritePage,
-    favoritesPhotos: photo.favoritesPhotos
+    favoritesPhotos: PhotoList.favoritesPhotos
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -84,8 +78,8 @@ export class ListView extends Component {
     this.makeRemoteRequest()
   }
 
-  makeRemoteRequest() {
-    const { changeLoading, setPhotosApi, keyBoardValue } = this.props
+  async makeRemoteRequest() {
+    const { changeLoading, setPhotosApi, keyBoardValue } = await this.props
     const url = `https://pixabay.com/api/?key=12282704-3447f9dbaf38b2d325571cc19&q=${keyBoardValue}&image_type=photo`
     changeLoading(true)
     fetch(url)
@@ -150,10 +144,7 @@ export class ListView extends Component {
   }
 }
 ListView.propTypes = {
-  setPhotosApi: propTypes.func,
-  changeLoading: propTypes.func,
   setKeyboardValue: propTypes.func,
-  keyBoardValue: propTypes.string,
   photos: propTypes.array,
   loading: propTypes.bool,
   favoritePage: propTypes.bool,

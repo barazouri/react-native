@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
-const mapStateToProps = ({ header, photo }) => {
+const mapStateToProps = ({ header, PhotoList }) => {
   return {
     headerMode: header.headerMode,
     favoritePage: header.favoritePage,
-    zoomInPhoto: photo.zoomInPhoto
+    zoomInPhoto: PhotoList.zoomInPhoto
   }
 }
 const mapDispatchToProps = dispatch => {

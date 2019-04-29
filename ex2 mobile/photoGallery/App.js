@@ -16,11 +16,9 @@ const mapStateToProps = ({ header }) => {
 }
 export class App extends Component {
   render() {
-    // const { headerMode } = this.props
     return (
       <View style={styles.appContainer}>
         <Header />
-        {/* {headerMode ? <PhotoList /> : <ListView />} */}
         <PhotoList />
       </View>
     )

@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ photo, header, ListView }) => {
+const mapStateToProps = ({ PhotoList, header, ListView }) => {
   return {
     favoritePage: header.favoritePage,
     headerMode: header.headerMode,
     photos: ListView.photos,
-    zoomInPhoto: photo.zoomInPhoto,
-    photoToZoom: photo.photoToZoom,
-    favoritesPhotos: photo.favoritesPhotos,
-    keyBoardValue: ListView.keyBoardValue
+    keyBoardValue: ListView.keyBoardValue,
+    zoomInPhoto: PhotoList.zoomInPhoto,
+    photoToZoom: PhotoList.photoToZoom,
+    favoritesPhotos: PhotoList.favoritesPhotos
   }
 }
 const mapDispatchToProps = dispatch => {
