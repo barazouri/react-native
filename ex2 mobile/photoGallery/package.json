@@ -11,6 +11,27 @@
   "jest": {
     "preset": "react-native"
   },
+  "checkSubmission": {
+    "ex": 2,
+    "students": [
+      {
+        "id": "205785124",
+        "fullName": "Bar Azouri",
+        "email": "barazouri24@gmail.com"
+      },
+      {
+        "id": "308353523",
+        "fullName": "Guy Golpur",
+        "email": "guygolpur@gmail.com"
+      }
+    ],
+    "os": "Mac",
+    "device": "ios",
+    "deliveryDate": "22/3/2019",
+    "delay": false,
+    "delayReason": "",
+    "comments": ""
+  },
   "dependencies": {
     "@react-native-community/async-storage": "^1.3.3",
     "prop-types": "^15.7.2",
