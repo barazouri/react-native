@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, Text, View, Image, ActivityIndicator, TextInput }
 import propTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ListViewActions from './ListViewActions'
-
 const styles = StyleSheet.create({
   emptyArrayText: {
     marginTop: 30,
@@ -54,20 +53,20 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ ListView }) => {
+const mapStateToProps = ({ ListView, header, photo }) => {
   return {
     loading: ListView.loading,
     keyBoardValue: ListView.keyBoardValue,
     photos: ListView.photos,
-    arrayholder: ListView.arrayholder
+    favoritePage: header.favoritePage,
+    favoritesPhotos: photo.favoritesPhotos
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     changeLoading: status => dispatch(ListViewActions.changeLoading(status)),
     setKeyboardValue: value => dispatch(ListViewActions.setKeyboardValue(value)),
-    setPhotosApi: photos => dispatch(ListViewActions.setPhotosApi(photos)),
-    setArrayHolder: photos => dispatch(ListViewActions.setArrayHolder(photos))
+    setPhotosApi: photos => dispatch(ListViewActions.setPhotosApi(photos))
   }
 }
 
@@ -77,8 +76,8 @@ export class ListView extends Component {
     this.emptyListMessage = this.emptyListMessage.bind(this)
     this.makeRemoteRequest = this.makeRemoteRequest.bind(this)
     this.renderSeparator = this.renderSeparator.bind(this)
-    this.renderSearchInput = this.renderSearchInput.bind(this)
     this.searchFilterFunction = this.searchFilterFunction.bind(this)
+    this.handleSearchByEnter = this.handleSearchByEnter.bind(this)
   }
 
   componentDidMount() {
@@ -86,17 +85,14 @@ export class ListView extends Component {
   }
 
   makeRemoteRequest() {
-    const { changeLoading, setPhotosApi, setArrayHolder, keyBoardValue } = this.props
+    const { changeLoading, setPhotosApi, keyBoardValue } = this.props
     const url = `https://pixabay.com/api/?key=12282704-3447f9dbaf38b2d325571cc19&q=${keyBoardValue}&image_type=photo`
-    //https://pixabay.com/api/?key=12282704-3447f9dbaf38b2d325571cc19&q=yellow+flowers&image_type=photo
-    //https://pixabay.com/api/?key=12282704-3447f9dbaf38b2d325571cc19
     changeLoading(true)
     fetch(url)
       .then(res => res.json())
       .then(photosJson => {
         setPhotosApi(photosJson.hits)
         changeLoading(false)
-        setArrayHolder(photosJson.hits)
       })
       .catch(error => {
         throw new Error(error)
@@ -106,28 +102,12 @@ export class ListView extends Component {
   renderSeparator() {
     return <View style={styles.seperator} />
   }
-
-  renderSearchInput() {
-    return (
-      <View>
-        <TextInput
-          placeholder="Type Here..."
-          style={styles.inputStyle}
-          onChangeText={text => this.searchFilterFunction(text)}
-        />
-      </View>
-    )
-  }
-
   searchFilterFunction(text) {
-    const { arrayholder, setPhotosApi, setKeyboardValue } = this.props
+    const { setKeyboardValue } = this.props
     setKeyboardValue(text)
-    const newData = arrayholder.filter(item => {
-      const itemData = `${item.tags.toUpperCase()}`
-      const textData = text.toUpperCase()
-      return itemData.indexOf(textData) > -1
-    })
-    setPhotosApi(newData)
+  }
+  handleSearchByEnter() {
+    this.makeRemoteRequest()
   }
 
   emptyListMessage() {
@@ -135,7 +115,7 @@ export class ListView extends Component {
   }
 
   render() {
-    const { loading, photos } = this.props
+    const { favoritesPhotos, loading, photos, favoritePage } = this.props
     if (loading) {
       return (
         <View style={styles.loading}>
@@ -146,7 +126,7 @@ export class ListView extends Component {
     return (
       <View>
         <FlatList
-          data={photos}
+          data={favoritePage ? favoritesPhotos : photos}
           ListEmptyComponent={this.emptyListMessage}
           renderItem={({ item }) => (
             <View style={styles.container}>
@@ -164,7 +144,6 @@ export class ListView extends Component {
           )}
           keyExtractor={item => item.id.toString()}
           ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderSearchInput}
         />
       </View>
     )
@@ -174,11 +153,11 @@ ListView.propTypes = {
   setPhotosApi: propTypes.func,
   changeLoading: propTypes.func,
   setKeyboardValue: propTypes.func,
-  setArrayHolder: propTypes.func,
-  arrayholder: propTypes.array,
   keyBoardValue: propTypes.string,
   photos: propTypes.array,
-  loading: propTypes.bool
+  loading: propTypes.bool,
+  favoritePage: propTypes.bool,
+  favoritesPhotos: propTypes.array
 }
 export default connect(
   mapStateToProps,

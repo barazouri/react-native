@@ -8,8 +8,7 @@ import {
 const initialState = {
   loading: false,
   photos: [],
-  keyBoardValue: '',
-  arrayholder: []
+  keyBoardValue: ''
 }
 
 export default (state = initialState, action) => {

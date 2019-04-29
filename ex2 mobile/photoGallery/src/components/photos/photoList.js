@@ -5,6 +5,7 @@ import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text, TextInput } 
 import photoActions from './photoAction'
 import headerAction from '../Header/headerActions'
 import ListViewActions from '../ListView/ListViewActions'
+import ListView from '../ListView/listView'
 
 const styles = StyleSheet.create({
   gridContainer: {
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   emptyArrayText: {
-    // width: 360,
     marginTop: 30,
     fontSize: 40,
     textAlign: 'center'
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     width: 35
   },
   inputStyle: {
-    // flex: 1,
     height: 30,
     borderWidth: 1,
     borderRadius: 5,
@@ -60,7 +59,6 @@ const mapStateToProps = ({ photo, header, ListView }) => {
     zoomInPhoto: photo.zoomInPhoto,
     photoToZoom: photo.photoToZoom,
     favoritesPhotos: photo.favoritesPhotos,
-    arrayholder: ListView.arrayholder,
     keyBoardValue: ListView.keyBoardValue
   }
 }
@@ -71,7 +69,8 @@ const mapDispatchToProps = dispatch => {
     favoriteClicked: status => dispatch(headerAction.favoriteClicked(status)),
     isZoom: kind => dispatch(photoActions.isZoom(kind)),
     setPhotosApi: photos => dispatch(ListViewActions.setPhotosApi(photos)),
-    setKeyboardValue: value => dispatch(ListViewActions.setKeyboardValue(value))
+    setKeyboardValue: value => dispatch(ListViewActions.setKeyboardValue(value)),
+    changeLoading: status => dispatch(ListViewActions.changeLoading(status))
   }
 }
 
@@ -82,8 +81,23 @@ export class PhotoList extends Component {
     this.zoomPhoto = this.zoomPhoto.bind(this)
     this.emptyListMessage = this.emptyListMessage.bind(this)
     this.handleButtonBackClicked = this.handleButtonBackClicked.bind(this)
-    this.renderSearchInput = this.renderSearchInput.bind(this)
     this.searchFilterFunction = this.searchFilterFunction.bind(this)
+    this.handleSearchByEnter = this.handleSearchByEnter.bind(this)
+    this.makeRemoteRequest = this.makeRemoteRequest.bind(this)
+  }
+  makeRemoteRequest() {
+    const { changeLoading, setPhotosApi, keyBoardValue } = this.props
+    const url = `https://pixabay.com/api/?key=12282704-3447f9dbaf38b2d325571cc19&q=${keyBoardValue}&image_type=photo`
+    changeLoading(true)
+    fetch(url)
+      .then(res => res.json())
+      .then(photosJson => {
+        setPhotosApi(photosJson.hits)
+        changeLoading(false)
+      })
+      .catch(error => {
+        throw new Error(error)
+      })
   }
   emptyListMessage() {
     return <Text style={styles.emptyArrayText}>No Result Were Found</Text>
@@ -92,31 +106,12 @@ export class PhotoList extends Component {
     const { isZoom } = this.props
     isZoom(false)
   }
-  searchFilterFunction(text) {
-    const { arrayholder, setPhotosApi, setKeyboardValue } = this.props
-    setKeyboardValue(text)
-    const newData = arrayholder.filter(item => {
-      const itemData = `${item.tags.toUpperCase()}`
-      const textData = text.toUpperCase()
-      return itemData.indexOf(textData) > -1
-    })
-    setPhotosApi(newData)
+  handleSearchByEnter() {
+    this.makeRemoteRequest()
   }
-  renderSearchInput() {
-    const { keyBoardValue, favoritePage } = this.props
-    if (!favoritePage) {
-      return (
-        <View>
-          <TextInput
-            placeholder="Type Here..."
-            style={styles.inputStyle}
-            onChangeText={text => this.searchFilterFunction(text)}
-            value={keyBoardValue}
-          />
-        </View>
-      )
-    }
-    return <View />
+  searchFilterFunction(text) {
+    const { setKeyboardValue } = this.props
+    setKeyboardValue(text)
   }
   zoomPhoto() {
     const { favoritePage, photoToZoom, addPhotoToFavorite } = this.props
@@ -142,6 +137,12 @@ export class PhotoList extends Component {
     const { photos, headerMode, zoomClickedPhoto, favoritePage, favoritesPhotos } = this.props
     return (
       <View style={styles.photoContainer}>
+        <TextInput
+          placeholder="Type Here..."
+          style={styles.inputStyle}
+          onChangeText={text => this.searchFilterFunction(text)}
+          onEndEditing={this.handleSearchByEnter}
+        />
         {headerMode && (
           <FlatList
             data={favoritePage ? favoritesPhotos : photos}
@@ -153,10 +154,10 @@ export class PhotoList extends Component {
               </TouchableOpacity>
             )}
             keyExtractor={item => item.id}
-            ListHeaderComponent={this.renderSearchInput}
             onEndThreshold={0}
           />
         )}
+        {!headerMode && <ListView />}
       </View>
     )
   }
@@ -175,13 +176,13 @@ PhotoList.propTypes = {
   keyBoardValue: propTypes.string,
   favoritesPhotos: propTypes.array,
   photos: propTypes.array,
-  arrayholder: propTypes.array,
   photoToZoom: propTypes.object,
   addPhotoToFavorite: propTypes.func,
   zoomClickedPhoto: propTypes.func,
   isZoom: propTypes.func,
   setPhotosApi: propTypes.func,
-  setKeyboardValue: propTypes.func
+  setKeyboardValue: propTypes.func,
+  changeLoading: propTypes.func
 }
 export default connect(
   mapStateToProps,
