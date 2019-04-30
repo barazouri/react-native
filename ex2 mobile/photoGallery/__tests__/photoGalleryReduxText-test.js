@@ -61,7 +61,7 @@ describe('redux e2e functionality', function() {
   //photos
   test('check addPhotoToFavorite function in photos', function() {
     const store = createStore(rootReducer, initialState, composedEnhancers)
-    expect(store.getState().photo).toHaveProperty('favoritesPhotos', [])
+    expect(store.getState().PhotoList).toHaveProperty('favoritesPhotos', [])
     store.dispatch(
       photoAction.addPhotoToFavorite({
         largeImageURL:
@@ -69,7 +69,7 @@ describe('redux e2e functionality', function() {
         webformatHeight: 426
       })
     )
-    expect(store.getState().photo).toHaveProperty('favoritesPhotos', [
+    expect(store.getState().PhotoList).toHaveProperty('favoritesPhotos', [
       {
         largeImageURL:
           'https://pixabay.com/get/ea37b50e2ff11c22d2524518b74d4494eb75e5d51dac104490f6c47da0eebdb9_1280.jpg',
@@ -79,8 +79,8 @@ describe('redux e2e functionality', function() {
   })
   test('check zoomClickedPhoto function in photos', function() {
     const store = createStore(rootReducer, initialState, composedEnhancers)
-    expect(store.getState().photo).toHaveProperty('photoToZoom', {})
-    expect(store.getState().photo).toHaveProperty('zoomInPhoto', false)
+    expect(store.getState().PhotoList).toHaveProperty('photoToZoom', {})
+    expect(store.getState().PhotoList).toHaveProperty('zoomInPhoto', false)
     store.dispatch(
       photoAction.zoomClickedPhoto({
         largeImageURL:
@@ -88,19 +88,19 @@ describe('redux e2e functionality', function() {
         webformatHeight: 426
       })
     )
-    expect(store.getState().photo).toHaveProperty('photoToZoom', {
+    expect(store.getState().PhotoList).toHaveProperty('photoToZoom', {
       largeImageURL:
         'https://pixabay.com/get/ea37b50e2ff11c22d2524518b74d4494eb75e5d51dac104490f6c47da0eebdb9_1280.jpg',
       webformatHeight: 426
     })
-    expect(store.getState().photo).toHaveProperty('zoomInPhoto', true)
+    expect(store.getState().PhotoList).toHaveProperty('zoomInPhoto', true)
   })
   test('check isZoom function in photos', function() {
     const store = createStore(rootReducer, initialState, composedEnhancers)
-    expect(store.getState().photo).toHaveProperty('zoomInPhoto', false)
+    expect(store.getState().PhotoList).toHaveProperty('zoomInPhoto', false)
     store.dispatch(photoAction.isZoom(true))
-    expect(store.getState().photo).toHaveProperty('zoomInPhoto', true)
+    expect(store.getState().PhotoList).toHaveProperty('zoomInPhoto', true)
     store.dispatch(photoAction.isZoom(false))
-    expect(store.getState().photo).toHaveProperty('zoomInPhoto', false)
+    expect(store.getState().PhotoList).toHaveProperty('zoomInPhoto', false)
   })
 })
