@@ -1,12 +1,33 @@
 import React, { Component } from 'react'
 import propTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  Text,
+  TextInput,
+  AsyncStorage
+} from 'react-native'
 import photoActions from './photoAction'
 import headerAction from '../Header/headerActions'
 import ListViewActions from '../ListView/ListViewActions'
 import ListView from '../ListView/listView'
 
+const retrieveData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@favorites')
+    if (value !== null) {
+      const favorites = JSON.parse(value)
+      return favorites
+    }
+    return []
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 const styles = StyleSheet.create({
   gridContainer: {
     alignItems: 'center'
@@ -84,6 +105,13 @@ export class PhotoList extends Component {
     this.searchFilterFunction = this.searchFilterFunction.bind(this)
     this.handleSearchByEnter = this.handleSearchByEnter.bind(this)
     this.makeRemoteRequest = this.makeRemoteRequest.bind(this)
+  }
+  async componentDidMount() {
+    const { addPhotoToFavorite } = this.props
+    const favorites = await retrieveData()
+    for (const photo of favorites) {
+      addPhotoToFavorite(photo)
+    }
   }
   makeRemoteRequest() {
     const { changeLoading, setPhotosApi, keyBoardValue } = this.props
