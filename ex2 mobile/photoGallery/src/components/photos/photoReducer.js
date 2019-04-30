@@ -1,16 +1,23 @@
 import { IS_ZOOM, ADD_PHOTO_TO_FAVORITE, ZOOM_PHOTO } from './phothActionTypes'
 // import { AsyncStorage } from 'react-native'
-
-// var getFavoriteFromMemory = () => {
-//   _retrieveData = async () => {
-//     try {
-//       const value = await AsyncStorage.getItem('@favorites');
-//       if (value !== null) {
-//         return(value)
-//       }
-//     } catch (error) {
+// const retrieveData = async () => {
+//   try {
+//     const value = await AsyncStorage.getItem('@favorites')
+//     if (value !== null) {
+//       console.log(value)
+//       return value
+//     }
+//     return []
+//   } catch (error) {
+//     // Error retrieving data
 //   }
 // }
+// const _storeData = async favoritesPhotos => {
+//   try {
+//     await AsyncStorage.setItem('@favorites', JSON.stringify(favoritesPhotos))
+//   } catch (error) {
+//     // Error saving data
+//   }
 // }
 
 const initialState = {
@@ -27,13 +34,8 @@ export default (state = initialState, action) => {
           ...state,
           favoritesPhotos: [...state.favoritesPhotos, action.data]
         }
-      // _storeData = async () => {
-      //   try {
-      //     await AsyncStorage.setItem('@favorites', state.favoritesPhotos)
-      //   } catch (e) {
-      //     // saving error
-      //   }
-      // }
+      // console.log(state.favoritesPhotos)
+      // _storeData(state.favoritesPhotos)
       return state
 
     case ZOOM_PHOTO:
