@@ -1,0 +1,76 @@
+{
+  "name": "bonus_exercise",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "lint": "eslint --cache --format codeframe --ext .js ."
+  },
+  "checkSubmission": {
+    "ex": "bonus",
+    "students": [
+      {
+        "id": "205785124",
+        "fullName": "Bar Azouri",
+        "email": "barazouri24@gmail.com"
+      },
+      {
+        "id": "308353523",
+        "fullName": "Guy Golpur",
+        "email": "guygolpur@gmail.com"
+      }
+    ],
+    "os": "Mac",
+    "device": "ios",
+    "deliveryDate": "22/3/2019",
+    "delay": false,
+    "delayReason": "",
+    "comments": ""
+  },
+  "rnpm": {
+    "assets": [
+      "app/fonts"
+    ]
+  },
+  "dependencies": {
+    "native-base": "^2.12.1",
+    "navbar-native": "^1.6.1",
+    "react": "16.8.3",
+    "react-long-press": "^0.1.6",
+    "react-native": "^0.59.6",
+    "react-native-maps": "^0.24.2",
+    "react-native-material-bottom-navigation": "^1.0.3",
+    "react-native-material-menu": "^0.4.2",
+    "react-native-nav": "^2.0.2",
+    "react-native-paper": "^2.15.2",
+    "react-native-swiper": "^1.5.14",
+    "react-native-tabbar-bottom": "^1.0.4",
+    "react-native-vector-icons": "^6.4.2",
+    "react-native-web-swiper": "^1.14.0",
+    "react-navigation-material-bottom-tabs": "^1.0.0",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/runtime": "^7.4.4",
+    "babel-jest": "^24.7.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-native": "^4.0.0",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-native": "^3.7.0",
+    "jest": "^24.7.1",
+    "metro-react-native-babel-preset": "^0.54.0",
+    "prettier": "^1.17.0",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
