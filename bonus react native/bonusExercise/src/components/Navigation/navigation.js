@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import Tabbar from 'react-native-tabbar-bottom'
 import Drag from '../Gestures/drag'
 import Location from '../Location/location'

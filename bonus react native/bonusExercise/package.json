@@ -39,6 +39,7 @@
     "react": "16.8.3",
     "react-long-press": "^0.1.6",
     "react-native": "^0.59.6",
+    "react-native-animated-swiper": "^0.0.23",
     "react-native-maps": "^0.24.2",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-material-menu": "^0.4.2",
