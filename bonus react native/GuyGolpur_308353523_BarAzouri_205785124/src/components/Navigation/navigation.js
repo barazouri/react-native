@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Tabbar from 'react-native-tabbar-bottom'
 import Drag from '../Gestures/drag'
 import Location from '../Location/location'
 import LongPressButton from '../Gestures/longPressButton'
 import Swipe from '../Gestures/swipe'
+import GyroscopeSensor from '../Gyroscope/gyroscope'
+import AccelerometerSensor from '../Accelerometer/accelerometer'
 
 const styles = StyleSheet.create({
   container: {
@@ -18,19 +20,19 @@ export default class Navigation extends Component {
   constructor() {
     super()
     this.state = {
-      page: 'HomeScreen'
+      page: 'Location'
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.page === 'HomeScreen' && <Location />}
-        {this.state.page === 'NotificationScreen' && <Drag />}
-        {this.state.page === 'ProfileScreen' && <LongPressButton />}
-        {this.state.page === 'ChatScreen' && <Swipe />}
-        {this.state.page === 'Gyroscope' && <Text>Gyroscope</Text>}
-        {this.state.page === 'Accelerometer' && <Text>Accelerometer</Text>}
+        {this.state.page === 'Location' && <Location />}
+        {this.state.page === 'Drag' && <Drag />}
+        {this.state.page === 'LongPressButton' && <LongPressButton />}
+        {this.state.page === 'Swipe' && <Swipe />}
+        {this.state.page === 'Gyroscope' && <GyroscopeSensor />}
+        {this.state.page === 'Accelerometer' && <AccelerometerSensor />}
 
         <Tabbar
           stateFunc={tab => {
@@ -39,19 +41,19 @@ export default class Navigation extends Component {
           activePage={this.state.page}
           tabs={[
             {
-              page: 'HomeScreen',
+              page: 'Location',
               icon: 'locate'
             },
             {
-              page: 'NotificationScreen',
+              page: 'Drag',
               icon: 'tennisball'
             },
             {
-              page: 'ProfileScreen',
+              page: 'LongPressButton',
               icon: 'radio-button-on'
             },
             {
-              page: 'ChatScreen',
+              page: 'Swipe',
               icon: 'swap'
             },
             {

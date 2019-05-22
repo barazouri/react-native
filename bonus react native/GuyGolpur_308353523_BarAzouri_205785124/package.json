@@ -11,19 +11,19 @@
     "ex": "bonus",
     "students": [
       {
-        "id": "205785124",
-        "fullName": "Bar Azouri",
-        "email": "barazouri24@gmail.com"
-      },
-      {
         "id": "308353523",
         "fullName": "Guy Golpur",
         "email": "guygolpur@gmail.com"
+      },
+      {
+        "id": "205785124",
+        "fullName": "Bar Azouri",
+        "email": "barazouri24@gmail.com"
       }
     ],
     "os": "Mac",
-    "device": "ios",
-    "deliveryDate": "22/3/2019",
+    "device": "iOS",
+    "deliveryDate": "05/20/2019",
     "delay": false,
     "delayReason": "",
     "comments": ""
@@ -40,11 +40,13 @@
     "react-long-press": "^0.1.6",
     "react-native": "^0.59.6",
     "react-native-animated-swiper": "^0.0.23",
+    "react-native-deck-swiper": "^1.6.7",
     "react-native-maps": "^0.24.2",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-material-menu": "^0.4.2",
     "react-native-nav": "^2.0.2",
     "react-native-paper": "^2.15.2",
+    "react-native-sensors": "^5.1.8",
     "react-native-swiper": "^1.5.14",
     "react-native-tabbar-bottom": "^1.0.4",
     "react-native-vector-icons": "^6.4.2",
